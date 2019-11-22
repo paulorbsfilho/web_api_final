@@ -14,6 +14,8 @@ class ApiRoot(generics.GenericAPIView):
 
     def get(self, request):
         return Response({
+            'sign-up': reverse(UserCreate.name, request=request),
+            'users': reverse(UserList.name, request=request),
             'employers': reverse(EmployerList.name, request=request),
             'candidates': reverse(CandidateList.name, request=request),
             'job-advertisements': reverse(JobAdvertisementList.name, request=request),
@@ -27,6 +29,11 @@ class UserList(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
+class UserCreate(generics.CreateAPIView):
+    serializer_class = UserCreateSerializer
+    name = 'user-create'
+
+
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -34,7 +41,7 @@ class UserDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAdminUser]
 
 
-class EmployerList(generics.ListAPIView):
+class EmployerList(generics.ListCreateAPIView):
     queryset = Employer.objects.all()
     serializer_class = EmployerSerializer
     name = 'employer-list'
@@ -76,7 +83,6 @@ class JobAdvertisementList(generics.ListAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementListSerializer
     name = 'jobs-list'
-    permission_classes = [permissions.IsAuthenticated]
 
 
 class JobAdvertisementCreate(generics.CreateAPIView):

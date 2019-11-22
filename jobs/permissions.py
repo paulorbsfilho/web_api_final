@@ -11,7 +11,4 @@ class IsOwnerOrReadyOnly(permissions.BasePermission):
 
 class IsEmployerOrReadyOnly(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        if request.method in permissions.SAFE_METHODS:
-            return True
-        else:
-            return obj.owner == request.user
+        return obj.employer == request.user

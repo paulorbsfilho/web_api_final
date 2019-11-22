@@ -3,7 +3,7 @@ from django.db import models
 
 
 class Employer(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employer')
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE, related_name='employer')
     phone = models.CharField(max_length=22, null=True, blank=True)
 
     def __str__(self):
