@@ -37,7 +37,6 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
         employer.user = user
         employer.save()
         return employer
-        # return Employer.objects.create(user=user, phone=phone, **validated_data)
 
     def update(self, instance, validated_data):
         instance.username = validated_data.get('username', instance.username)
