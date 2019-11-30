@@ -8,7 +8,6 @@ urlpatterns = [
     path('api_auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.CustomAuthToken.as_view(), name=views.CustomAuthToken.name),
 
-    path('sign-up/', views.UserCreate.as_view(), name=views.UserCreate.name),
     path('users/', views.UserList.as_view(), name=views.UserList.name),
     path('users/<int:pk>', views.UserDetail.as_view(), name=views.UserDetail.name),
 

@@ -6,7 +6,7 @@ from rest_framework.reverse import reverse
 from rest_framework.throttling import ScopedRateThrottle
 
 from jobs.permissions import *
-from .serializers import *
+from jobs.serializers import *
 
 
 class ApiRoot(generics.GenericAPIView):
@@ -14,7 +14,6 @@ class ApiRoot(generics.GenericAPIView):
 
     def get(self, request):
         return Response({
-            'sign-up': reverse(UserCreate.name, request=request),
             'users': reverse(UserList.name, request=request),
             'employers': reverse(EmployerList.name, request=request),
             'candidates': reverse(CandidateList.name, request=request),
@@ -27,11 +26,6 @@ class UserList(generics.ListAPIView):
     serializer_class = UserSerializer
     name = 'user-list'
     permission_classes = [permissions.IsAuthenticated]
-
-
-class UserCreate(generics.CreateAPIView):
-    serializer_class = UserCreateSerializer
-    name = 'user-create'
 
 
 class UserDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -47,12 +41,12 @@ class EmployerList(generics.ListCreateAPIView):
     name = 'employer-list'
 
     def perform_create(self, serializer):
-        user = User.objects.create_user("paula", "paula@mail.com",
-                                        "paula123")
-        user.first_name ="paula"
-        user.last_name = "roberta"
+        data = self.request.data
+        user = User.objects.create_user(data['username'], data['email'], data['password'])
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
         user.save()
-        serializer.save(user=user)
+        serializer.save(user=user, phone=data['phone'])
 
 
 class EmployerDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -66,6 +60,14 @@ class CandidateList(generics.ListCreateAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
     name = 'candidate-list'
+
+    def perform_create(self, serializer):
+        data = self.request.data
+        user = User.objects.create_user(data['username'], data['email'], data['password'])
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.save()
+        serializer.save(user=user, phone=data['phone'])
 
 
 class CandidateDetail(generics.RetrieveUpdateDestroyAPIView):
