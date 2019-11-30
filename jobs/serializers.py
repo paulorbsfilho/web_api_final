@@ -18,34 +18,34 @@ class UserCreateSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class EmployerSerializer(serializers.HyperlinkedModelSerializer):
-    user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
+    # user = serializers.SlugRelatedField(queryset=User.objects.all(), slug_field='username')
 
     class Meta:
         model = Employer
-        fields = ['url', 'pk', 'user', ]
+        fields = ['url', 'pk', ]
 
-    def create(self, validated_data):
-        username = validated_data['username']
-        email = validated_data['email']
-        password = validated_data['password']
-        user = User.objects.create_user(username=username, email=email, password=password)
-        user.first_name = validated_data['first_name']
-        user.last_name = validated_data['last_name']
-        user.save()
-        employer = Employer()
-        employer.phone = validated_data['phone']
-        employer.user = user
-        employer.save()
-        return employer
-
-    def update(self, instance, validated_data):
-        instance.username = validated_data.get('username', instance.username)
-        instance.email = validated_data.get('email', instance.email)
-        instance.phone = validated_data.get('phone', instance.phone)
-        instance.first_name = validated_data.get('first_name', instance.first_name)
-        instance.last_name = validated_data.get('last_name', instance.last_name)
-        instance.save()
-        return instance
+    # def create(self, validated_data):
+    #     username = validated_data['username']
+    #     email = validated_data['email']
+    #     password = validated_data['password']
+    #     user = User.objects.create_user(username=username, email=email, password=password)
+    #     user.first_name = validated_data['first_name']
+    #     user.last_name = validated_data['last_name']
+    #     user.save()
+    #     employer = Employer()
+    #     employer.phone = validated_data['phone']
+    #     employer.user = user
+    #     employer.save()
+    #     return employer
+    #
+    # def update(self, instance, validated_data):
+    #     instance.username = validated_data.get('username', instance.username)
+    #     instance.email = validated_data.get('email', instance.email)
+    #     instance.phone = validated_data.get('phone', instance.phone)
+    #     instance.first_name = validated_data.get('first_name', instance.first_name)
+    #     instance.last_name = validated_data.get('last_name', instance.last_name)
+    #     instance.save()
+    #     return instance
 
 
 class CandidateSerializer(serializers.HyperlinkedModelSerializer):

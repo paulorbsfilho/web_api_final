@@ -46,6 +46,14 @@ class EmployerList(generics.ListCreateAPIView):
     serializer_class = EmployerSerializer
     name = 'employer-list'
 
+    def perform_create(self, serializer):
+        user = User.objects.create_user("paula", "paula@mail.com",
+                                        "paula123")
+        user.first_name ="paula"
+        user.last_name = "roberta"
+        user.save()
+        serializer.save(user=user)
+
 
 class EmployerDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employer.objects.all()
