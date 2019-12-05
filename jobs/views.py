@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
@@ -60,6 +60,7 @@ class CandidateList(generics.ListCreateAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
     name = 'candidate-list'
+    permission_classes = [IsEmployer]
 
     def perform_create(self, serializer):
         data = self.request.data
@@ -81,6 +82,10 @@ class CompanyList(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     name = 'company-list'
+    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadyOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -89,17 +94,20 @@ class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
     name = 'company-detail'
 
 
-class JobAdvertisementList(generics.ListAPIView):
-    queryset = JobAdvertisement.objects.all()
-    serializer_class = JobAdvertisementListSerializer
-    name = 'jobs-list'
-
-
-class JobAdvertisementCreate(generics.CreateAPIView):
+class JobAdvertisementList(generics.ListCreateAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
-    name = 'jobs-create'
-    permission_classes = [IsEmployerOrReadyOnly]
+    name = 'jobs-list'
+    permission_classes = [permissions.IsAuthenticated, IsEmployerOrReadOnly, IsOwnerOrReadyOnly]
+
+    def perform_create(self, serializer):
+        owner = self.request.user
+        company = Company.objects.get(name=self.request.data['company'])
+        if company.owner == owner:
+            serializer.save(owner=owner, company=company)
+        else:
+            res = {"\"info\":\"Essa empresa não pertece a você.\""}
+            return Response(res, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class JobAdvertisementDetail(generics.RetrieveUpdateDestroyAPIView):

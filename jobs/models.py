@@ -33,6 +33,7 @@ class Company(models.Model):
 
 
 class JobAdvertisement(models.Model):
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='job_advertisement')
     title = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     requirements = models.CharField(max_length=300)
