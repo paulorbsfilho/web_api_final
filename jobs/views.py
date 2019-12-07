@@ -14,53 +14,62 @@ class ApiRoot(generics.GenericAPIView):
 
     def get(self, request):
         return Response({
-            'users': reverse(UserList.name, request=request),
-            'employers': reverse(EmployerList.name, request=request),
-            'candidates': reverse(CandidateList.name, request=request),
-            'job-advertisements': reverse(JobAdvertisementList.name, request=request),
+            'users': reverse(UserListView.name, request=request),
+            'signup-employer': reverse(EmployerCreateView.name, request=request),
+            'employers': reverse(EmployerListView.name, request=request),
+            'signup-candidate': reverse(CandidateCreateView.name, request=request),
+            'candidates': reverse(CandidateListView.name, request=request),
+            'job-advertisements': reverse(JobAdvertisementListView.name, request=request),
+            'companies': reverse(CompanyListView.name, request=request),
         })
 
 
-class UserList(generics.ListAPIView):
+class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-list'
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
-class UserDetail(generics.RetrieveUpdateDestroyAPIView):
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
     permission_classes = [permissions.IsAdminUser]
 
 
-class EmployerList(generics.ListCreateAPIView):
+class EmployerCreateView(generics.CreateAPIView):
+    queryset = Employer.objects.all()
+    serializer_class = EmployerSerializer
+    name = 'employer-create'
+
+    def perform_create(self, serializer):
+        data = self.request.data
+        user = User.objects.create_user(data['username'], data['email'], data['password'])
+        user.first_name = data['first_name']
+        user.last_name = data['last_name']
+        user.save()
+        serializer.save(user=user, phone=data['phone'])
+
+
+class EmployerListView(generics.ListAPIView):
     queryset = Employer.objects.all()
     serializer_class = EmployerSerializer
     name = 'employer-list'
-
-    def perform_create(self, serializer):
-        data = self.request.data
-        user = User.objects.create_user(data['username'], data['email'], data['password'])
-        user.first_name = data['first_name']
-        user.last_name = data['last_name']
-        user.save()
-        serializer.save(user=user, phone=data['phone'])
+    permission_classes = [permissions.IsAdminUser]
 
 
-class EmployerDetail(generics.RetrieveUpdateDestroyAPIView):
+class EmployerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Employer.objects.all()
     serializer_class = EmployerSerializer
     name = 'employer-detail'
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser, IsSelf]
 
 
-class CandidateList(generics.ListCreateAPIView):
+class CandidateCreateView(generics.CreateAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
-    name = 'candidate-list'
-    permission_classes = [IsEmployer]
+    name = 'candidate-create'
 
     def perform_create(self, serializer):
         data = self.request.data
@@ -71,34 +80,42 @@ class CandidateList(generics.ListCreateAPIView):
         serializer.save(user=user, phone=data['phone'])
 
 
-class CandidateDetail(generics.RetrieveUpdateDestroyAPIView):
+class CandidateListView(generics.ListAPIView):
+    queryset = Candidate.objects.all()
+    serializer_class = CandidateSerializer
+    name = 'candidate-list'
+    permission_classes = [IsEmployer, permissions.IsAdminUser]
+
+
+class CandidateDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
     name = 'candidate-detail'
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser, IsSelf]
 
 
-class CompanyList(generics.ListCreateAPIView):
+class CompanyListView(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     name = 'company-list'
-    permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadyOnly]
+    permission_classes = [permissions.IsAdminUser, IsEmployerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-class CompanyDetail(generics.RetrieveUpdateDestroyAPIView):
+class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     name = 'company-detail'
+    permission_classes = [permissions.IsAdminUser, IsOwner]
 
 
-class JobAdvertisementList(generics.ListCreateAPIView):
+class JobAdvertisementCreateView(generics.CreateAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
-    name = 'jobs-list'
-    permission_classes = [permissions.IsAuthenticated, IsEmployerOrReadOnly, IsOwnerOrReadyOnly]
+    name = 'jobadvertisement-create'
+    permission_classes = [permissions.IsAdminUser, IsEmployer]
 
     def perform_create(self, serializer):
         owner = self.request.user
@@ -110,13 +127,20 @@ class JobAdvertisementList(generics.ListCreateAPIView):
             return Response(res, status=status.HTTP_401_UNAUTHORIZED)
 
 
-class JobAdvertisementDetail(generics.RetrieveUpdateDestroyAPIView):
+class JobAdvertisementListView(generics.ListAPIView):
+    queryset = JobAdvertisement.objects.all()
+    serializer_class = JobAdvertisementListSerializer
+    name = 'jobadvertisement-list'
+
+
+class JobAdvertisementDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
-    name = 'jobs-detail'
+    name = 'jobadvertisement-detail'
+    permission_classes = [permissions.IsAdminUser, IsOwnerOrReadyOnly, IsEmployerOrReadOnly]
 
 
-class CustomAuthToken(ObtainAuthToken):
+class CustomAuthTokenView(ObtainAuthToken):
     name = 'auth-token'
     throttle_scope = 'custom-auth-token'
     throttle_classes = [ScopedRateThrottle]
