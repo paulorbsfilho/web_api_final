@@ -138,6 +138,8 @@ class JobAdvertisementListView(generics.ListAPIView):
     filterset_fields = ['title', 'payment']
     search_fields = ['^title']
     ordering_fields = ['title', 'payment']
+    throttle_scope = 'job-view'
+    throttle_classes = (ScopedRateThrottle,)
     name = 'jobadvertisement-list'
 
     def get_queryset(self):

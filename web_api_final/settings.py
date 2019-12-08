@@ -135,7 +135,8 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100/hour',
         'user': '500/hour',
-        'custom-auth-token': '3600/hour',
+        'auth-token': '36/hour',
+        'job-view': '3600/hour',
     },
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
