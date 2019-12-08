@@ -149,7 +149,17 @@ REST_FRAMEWORK = {
 }
 
 OAUTH2_PROVIDER = {
-    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+    'SCOPES': {'user:read': 'Read user scope',
+               'user:write': 'Write user scope',
+               'read:ad': 'Read advertise scope',
+               'write:ad': 'Write advertise scope',
+               'read:company': 'Read company scope',
+               'write:company': 'Write company scope',
+               'read:employer': 'Read employer scope',
+               'write:employer': 'Write employer scope',
+               'read:candidate': 'Read candidate scope',
+               'write:candidate': 'Write candidate scope',
+               }
 }
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

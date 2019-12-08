@@ -4,7 +4,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.throttling import ScopedRateThrottle
-from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope, OAuth2Authentication
 
 from jobs.permissions import *
 from jobs.serializers import *
@@ -29,7 +29,9 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-list'
+    authentication_classes = [OAuth2Authentication]
     permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
+    required_scopes = ['read:user']
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -37,6 +39,7 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = UserSerializer
     name = 'user-detail'
     permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
+    required_scopes = ['write:user']
 
 
 class EmployerCreateView(generics.CreateAPIView):
@@ -50,6 +53,12 @@ class EmployerCreateView(generics.CreateAPIView):
         user.first_name = data['first_name']
         user.last_name = data['last_name']
         user.save()
+        company = Company()
+        company.company_name = data['company_name']
+        company.catchPhrase = data['catchPhrase']
+        company.about = data['about']
+        company.owner = user
+        company.save()
         serializer.save(user=user, phone=data['phone'])
 
 
@@ -58,6 +67,7 @@ class EmployerListView(generics.ListAPIView):
     serializer_class = EmployerSerializer
     name = 'employer-list'
     permission_classes = [permissions.IsAdminUser]
+    required_scopes = ['read:employer']
 
 
 class EmployerDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -65,6 +75,7 @@ class EmployerDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = EmployerSerializer
     name = 'employer-detail'
     permission_classes = [permissions.IsAdminUser, IsSelf]
+    required_scopes = ['write:employer']
 
 
 class CandidateCreateView(generics.CreateAPIView):
@@ -88,7 +99,9 @@ class CandidateListView(generics.ListAPIView):
     search_fields = ['^user', 'academic_formation']
     ordering_fields = ['pk', 'user', 'phone', 'academic_formation', 'bio']
     name = 'candidate-list'
-    permission_classes = [IsEmployer, TokenHasScope]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasScope, IsEmployer]
+    required_scopes = ['read:candidate']
 
 
 class CandidateDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -96,6 +109,7 @@ class CandidateDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CandidateSerializer
     name = 'candidate-detail'
     permission_classes = [permissions.IsAdminUser, IsSelf, TokenHasScope]
+    required_scopes = ['write:candidate']
 
 
 class CompanyListView(generics.ListCreateAPIView):
@@ -103,6 +117,7 @@ class CompanyListView(generics.ListCreateAPIView):
     serializer_class = CompanySerializer
     name = 'company-list'
     permission_classes = [permissions.IsAdminUser, IsEmployerOrReadOnly, TokenHasReadWriteScope]
+    required_scopes = ['read:company', 'write:company']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -113,6 +128,7 @@ class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = CompanySerializer
     name = 'company-detail'
     permission_classes = [permissions.IsAdminUser, IsOwner, TokenHasScope]
+    required_scopes = ['write:company']
 
 
 class JobAdvertisementCreateView(generics.CreateAPIView):
@@ -140,6 +156,9 @@ class JobAdvertisementListView(generics.ListAPIView):
     ordering_fields = ['title', 'payment']
     throttle_scope = 'job-view'
     throttle_classes = (ScopedRateThrottle,)
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [TokenHasScope]
+    required_scopes = ['read:ad']
     name = 'jobadvertisement-list'
 
     def get_queryset(self):
@@ -151,6 +170,7 @@ class JobAdvertisementDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = JobAdvertisementDetailSerializer
     name = 'jobadvertisement-detail'
     permission_classes = [permissions.IsAdminUser, IsOwnerOrReadyOnly, IsEmployerOrReadOnly]
+    required_scopes = ['write:company']
 
 
 class CustomAuthTokenView(ObtainAuthToken):

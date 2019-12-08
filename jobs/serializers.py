@@ -31,7 +31,7 @@ class CompanySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Company
-        fields = ['url', 'pk', 'name', 'owner', 'catchPhrase', 'about']
+        fields = ['url', 'pk', 'company_name', 'owner', 'catchPhrase', 'about']
 
 
 class JobAdvertisementListSerializer(serializers.HyperlinkedModelSerializer):

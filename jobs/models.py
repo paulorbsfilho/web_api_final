@@ -26,10 +26,10 @@ class Company(models.Model):
     owner = models.ForeignKey('auth.User', null=True, blank=True, on_delete=models.CASCADE, related_name='company')
     catchPhrase = models.CharField(max_length=150)
     about = models.CharField(max_length=400)
-    name = models.CharField(max_length=100)
+    company_name = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.name
+        return self.company_name
 
 
 class JobAdvertisement(models.Model):
