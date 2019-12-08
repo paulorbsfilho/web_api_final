@@ -1,9 +1,10 @@
-from rest_framework import generics, status
+from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.throttling import ScopedRateThrottle
+from oauth2_provider.contrib.rest_framework import TokenHasReadWriteScope, TokenHasScope
 
 from jobs.permissions import *
 from jobs.serializers import *
@@ -28,14 +29,14 @@ class UserListView(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-list'
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
 
 
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
 
 
 class EmployerCreateView(generics.CreateAPIView):
@@ -83,22 +84,25 @@ class CandidateCreateView(generics.CreateAPIView):
 class CandidateListView(generics.ListAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
+    filterset_fields = ['user', 'phone', 'academic_formation', 'bio']
+    search_fields = ['^user', 'academic_formation']
+    ordering_fields = ['pk', 'user', 'phone', 'academic_formation', 'bio']
     name = 'candidate-list'
-    permission_classes = [IsEmployer, permissions.IsAdminUser]
+    permission_classes = [IsEmployer, TokenHasScope]
 
 
 class CandidateDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
     name = 'candidate-detail'
-    permission_classes = [permissions.IsAdminUser, IsSelf]
+    permission_classes = [permissions.IsAdminUser, IsSelf, TokenHasScope]
 
 
 class CompanyListView(generics.ListCreateAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     name = 'company-list'
-    permission_classes = [permissions.IsAdminUser, IsEmployerOrReadOnly]
+    permission_classes = [permissions.IsAdminUser, IsEmployerOrReadOnly, TokenHasReadWriteScope]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -108,29 +112,36 @@ class CompanyDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
     name = 'company-detail'
-    permission_classes = [permissions.IsAdminUser, IsOwner]
+    permission_classes = [permissions.IsAdminUser, IsOwner, TokenHasScope]
 
 
 class JobAdvertisementCreateView(generics.CreateAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
     name = 'jobadvertisement-create'
-    permission_classes = [permissions.IsAdminUser, IsEmployer]
+    permission_classes = [IsEmployer]
 
     def perform_create(self, serializer):
         owner = self.request.user
         company = Company.objects.get(name=self.request.data['company'])
-        if company.owner == owner:
-            serializer.save(owner=owner, company=company)
-        else:
-            res = {"\"info\":\"Essa empresa não pertece a você.\""}
-            return Response(res, status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            if company.owner == owner:
+                serializer.save(owner=owner, company=company)
+        except:
+            print("!A empresa não é sua!\n")
+            raise Exception
 
 
 class JobAdvertisementListView(generics.ListAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementListSerializer
+    filterset_fields = ['title', 'payment']
+    search_fields = ['^title']
+    ordering_fields = ['title', 'payment']
     name = 'jobadvertisement-list'
+
+    def get_queryset(self):
+        return JobAdvertisement.objects.filter(owner=self.request.user)
 
 
 class JobAdvertisementDetailView(generics.RetrieveUpdateDestroyAPIView):

@@ -37,8 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oauth2_provider',
     'rest_framework',
+    'django_filters',
+    'oauth2_provider',
     'jobs',
 ]
 
@@ -118,19 +119,14 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-STATIC_URL = '/static/'
-
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        # 'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
-        # ' rest_framework_simplejwt.authentication.JWTAuthentication ' ,
+        'rest_framework.authentication.BasicAuthentication',
         ),
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',
@@ -141,4 +137,22 @@ REST_FRAMEWORK = {
         'user': '500/hour',
         'custom-auth-token': '3600/hour',
     },
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.SearchFilter',
+        'rest_framework.filters.OrderingFilter',
+    ],
+    # 'DEFAULT_PERMISSIONS_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # )
 }
+
+OAUTH2_PROVIDER = {
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+STATIC_URL = '/static/'
+
+# curl -X POST -d "grant_type=password&username=paulo&password=paulo123" -u"Oz6VFTP68uv4sOG5bz07cB4lh1UvUUnDI41hGQHO:W38ct9oY1ZgezDSmUV2V77kaR1HdVNex9gwQycfGHl4fe2ithwg41mr4aPFR5iP4liFyKw1caZEDxxsLaFtkv5QiH3mgIeLUsdKefaPGHkrY3ZF04uTSoXcyibqAscSI" http://localhost:8000/o/token/

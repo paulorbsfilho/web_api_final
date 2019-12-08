@@ -1,9 +1,10 @@
 from django.urls import path, include
 
-from . import views
+from jobs import views
 
 urlpatterns = [
     path('', views.ApiRoot.as_view(), name=views.ApiRoot.name),
+    path('o/', include('oauth2_provider.urls')),
 
     path('api_auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.CustomAuthTokenView.as_view(), name=views.CustomAuthTokenView.name),
