@@ -1,0 +1,1459 @@
+{
+	"info": {
+		"_postman_id": "62bbccbd-04b7-4512-a341-00b42460d92e",
+		"name": "Api jobs",
+		"description": "A API Jobs é uma api para divulgação de vagas de emprego. Ela possui os objetos Employer, Candidate, JobAdvertisement, e Company. Para ver detalhes das vagas é necessário registro.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Employer",
+			"item": [
+				{
+					"name": "Employer Create",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ana3\",\n    \"email\": \"ana@mail.com\",\n    \"password\": \"ana123\",\n    \"first_name\": \"ana\",\n    \"last_name\": \"maria\",\n    \"phone\": \"6565323434\",\n    \"company_name\": \"oracle\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"oracle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/sign-up-employer/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"sign-up-employer",
+								""
+							]
+						},
+						"description": "Essa requisição cria um empregador associado a um usuário(auth.User) juntamente com a sua primeira empresa obrigatoriamente."
+					},
+					"response": []
+				},
+				{
+					"name": "Employer List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "40y2AsEwO78GhAWQnYpIplOJe7sScs",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ana3\",\n    \"email\": \"ana@mail.com\",\n    \"password\": \"ana123\",\n    \"first_name\": \"ana\",\n    \"last_name\": \"maria\",\n    \"phone\": \"6565323434\",\n    \"company_name\": \"oracle\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"oracle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/employers/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employers",
+								""
+							]
+						},
+						"description": "Essa requisição é para listar empresas."
+					},
+					"response": []
+				},
+				{
+					"name": "Employer Detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "cjZkVqVKsztjeHAnCk52ZBApOfjcsD",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ana3\",\n    \"email\": \"ana@mail.com\",\n    \"password\": \"ana123\",\n    \"first_name\": \"ana\",\n    \"last_name\": \"maria\",\n    \"phone\": \"6565323434\",\n    \"company_name\": \"oracle\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"oracle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/employers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employers",
+								"1"
+							]
+						},
+						"description": "Essa requisição tem acesso aos detalhes de um empregador."
+					},
+					"response": []
+				},
+				{
+					"name": "Employer Update",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "40y2AsEwO78GhAWQnYpIplOJe7sScs",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ana3\",\n    \"email\": \"ana@mail.com\",\n    \"password\": \"ana123\",\n    \"first_name\": \"ana\",\n    \"last_name\": \"maria\",\n    \"phone\": \"6565323434\",\n    \"company_name\": \"oracle\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"oracle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/employers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employers",
+								"1"
+							]
+						},
+						"description": "Requisição para editar um empregador."
+					},
+					"response": []
+				},
+				{
+					"name": "Employer Delete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "40y2AsEwO78GhAWQnYpIplOJe7sScs",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"ana3\",\n    \"email\": \"ana@mail.com\",\n    \"password\": \"ana123\",\n    \"first_name\": \"ana\",\n    \"last_name\": \"maria\",\n    \"phone\": \"6565323434\",\n    \"company_name\": \"oracle\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"oracle\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/employers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"employers",
+								"1"
+							]
+						},
+						"description": "Requisição para excluir um empregador."
+					},
+					"response": []
+				}
+			],
+			"description": "Employer é a entidade do empregador. Ele se cadastra, pode anunciar e buscar candidatos. Pode registrar mais de uma empresa (Company) na sua conta e gerenciá-las.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6ade6e79-3e71-4742-9a42-e8646022bf11",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "94165473-03a3-4469-913f-3d420c34e899",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Candidate",
+			"item": [
+				{
+					"name": "Create Candidate",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"marcosteixeira\",\n    \"email\": \"marcos@mail.com\",\n    \"password\": \"marcosteixeira123\",\n    \"first_name\": \"marcos\",\n    \"last_name\": \"teixeira\",\n    \"phone\": \"656588834\",\n    \"academic_formation\": \"technolog in admnistration\",\n    \"institution\": \"FSA\",\n    \"bio\": \"ksgfuds dfugfdg siudgf isgf gfgfgfg u gfdufg dgf\",\n    \"knowledge\": \"shhsiahd di dhdhdhd dhd dhd dhdhdhsifisfh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/sign-up-candidate/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"sign-up-candidate",
+								""
+							]
+						},
+						"description": "Esta requisição cria um candidato associado a um usuário (auth.User)"
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates List",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "63hVw8kJuiUHNRdnrf9ycNgTcYDMOI",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/candidates/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								""
+							]
+						},
+						"description": "Requisição para listagem de candidatos."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Detail",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/candidates/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								"2"
+							]
+						},
+						"description": "Requisição para detalhes de um candidato."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Filter",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/candidates/?academic_formation=technolog+in+admnistration",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								""
+							],
+							"query": [
+								{
+									"key": "academic_formation",
+									"value": "technolog+in+admnistration"
+								}
+							]
+						},
+						"description": "Um exemplo de filtro de Candatos."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Search",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/candidates/?search=Programador",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Programador"
+								}
+							]
+						},
+						"description": "Um exemplo de busca de candidato."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Ordering",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/candidates/?ordering=title",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								""
+							],
+							"query": [
+								{
+									"key": "ordering",
+									"value": "title"
+								}
+							]
+						},
+						"description": "Requisição de candidatos com ordenação."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Update",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"marcosteixeira\",\n    \"email\": \"marcos@mail.com\",\n    \"password\": \"marcosteixeira123\",\n    \"first_name\": \"marcos\",\n    \"last_name\": \"teixeira\",\n    \"phone\": \"656588834\",\n    \"academic_formation\": \"technolog in admnistration\",\n    \"institution\": \"FSA\",\n    \"bio\": \"ksgfuds dfugfdg siudgf isgf gfgfgfg u gfdufg dgf\",\n    \"knowledge\": \"shhsiahd di dhdhdhd dhd dhd dhdhdhsifisfh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/candidates/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								"1"
+							]
+						},
+						"description": "Requisição para editar candidato."
+					},
+					"response": []
+				},
+				{
+					"name": "Candidates Delete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "CDVNQbWES7NDeo98Km1uaeSbrqZKAv",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:8000/candidates/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"candidates",
+								"1"
+							]
+						},
+						"description": "Requisição para excluir um candidato."
+					},
+					"response": []
+				}
+			],
+			"description": "A entidade Candidate é a entidade que representa um candidato que busca um emprego. Para ter acesso aos detalhes de um anúncio é necessário entrar como um candidato. caso seja um anônimo só poderá ver o título e o valor do salário.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ebdc829d-fc2d-461f-8c2f-ada7f8a62a0e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "88db43d2-1bed-4785-994f-ead56776528e",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Company",
+			"item": [
+				{
+					"name": "Company Create",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "TeLg0vc8FmsM077xDmOeAkrJq57DCJ",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"gulugulu\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"gulugulu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"companies",
+								""
+							]
+						},
+						"description": "Requisição para criar uma empresa. Para criar uma empresa usando esta requisição é necessário estar logado, não pode ser usado para criar a primeira empresa."
+					},
+					"response": []
+				},
+				{
+					"name": "Company List",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "LjmZaXPQfcrmw9QCFlyUzRucWyRh33",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"gulugulu\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"gulugulu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/companies/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"companies",
+								""
+							]
+						},
+						"description": "Requisição para listagem de empresas"
+					},
+					"response": []
+				},
+				{
+					"name": "Company Detail",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "LjmZaXPQfcrmw9QCFlyUzRucWyRh33",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"gulugulu\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"gulugulu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/companies/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"companies",
+								"1"
+							]
+						},
+						"description": "Requisição para edição de uma empresa."
+					},
+					"response": []
+				},
+				{
+					"name": "Company Update",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "LjmZaXPQfcrmw9QCFlyUzRucWyRh33",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"gulugulu\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"gulugulu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/companies/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"companies",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Company Delete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "LjmZaXPQfcrmw9QCFlyUzRucWyRh33",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"gulugulu\",\n    \"catchPhrase\": \"Hello world\",\n    \"about\": \"gulugulu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/companies/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"companies",
+								"1"
+							]
+						},
+						"description": "Requisição para excluir uma empresa."
+					},
+					"response": []
+				}
+			],
+			"description": "A entidade Company representa uma empresa. Um empresário (Employer) pode ser proprietário (owner) de uma ou mais empresas. A primeira empresa é cadstrada junto com o empresário. A partir daí, pode cadastrar mais se estiver logado.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3872e655-a195-4b50-9afb-53312bce5324",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "55a83619-699f-42b9-afb5-5e31d7a58dee",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "JobAdvertisement",
+			"item": [
+				{
+					"name": "Create Job Advertisement",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "40y2AsEwO78GhAWQnYpIplOJe7sScs",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Programador\",\n    \"description\": \"Programação em geral\",\n    \"requirements\": \"tudo\",\n    \"desirable\": \"Experiência\",\n    \"payment\": 3000,\n    \"company\": \"InternetFibra\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/advertise-job/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"advertise-job",
+								""
+							]
+						},
+						"description": "Requisição para anunciar uma vaga."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisements List",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								""
+							]
+						},
+						"description": "Requisição para listagem de vagas de emprego."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisements Filter",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/?title=Desenvolvedor+Flutter&payment=3000.1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								""
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "Desenvolvedor+Flutter"
+								},
+								{
+									"key": "payment",
+									"value": "3000.1"
+								}
+							]
+						},
+						"description": "Um exemplo de filtragem de anuúncios."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisement Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/?search=Desenvolvedor+Flutter",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "Desenvolvedor+Flutter"
+								}
+							]
+						},
+						"description": "Um exemplo de busca de anúncio."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisement Ordering",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/?ordering=payment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								""
+							],
+							"query": [
+								{
+									"key": "ordering",
+									"value": "payment"
+								}
+							]
+						},
+						"description": "Exemplo de ordenação de anúncios."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisements Detail",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "fPsQTG5vAPMc7R0K9J1HQT8e8tBkXn",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								"7"
+							]
+						},
+						"description": "Requisição para edição de um anúncio."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisements Update",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "fPsQTG5vAPMc7R0K9J1HQT8e8tBkXn",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Programador\",\n    \"description\": \"Programação em geral\",\n    \"requirements\": \"tudo\",\n    \"desirable\": \"Experiência\",\n    \"payment\": 3000,\n    \"company\": \"InternetFibra\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								"7"
+							]
+						},
+						"description": "Requisição para edição de um anúncio."
+					},
+					"response": []
+				},
+				{
+					"name": "JobAdvertisements Delete",
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": [
+								{
+									"key": "accessToken",
+									"value": "fPsQTG5vAPMc7R0K9J1HQT8e8tBkXn",
+									"type": "string"
+								},
+								{
+									"key": "tokenType",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "queryParams",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/jobs-advertisements/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"jobs-advertisements",
+								"7"
+							]
+						},
+						"description": "Requisição para excluir um anúncio."
+					},
+					"response": []
+				}
+			],
+			"description": "A entidade JobAdvertisement representa o anúncio de uma vaga. Usuários anônimos precisam fazer registro antes de ver detalhes sobre a vaga. Somente empresários podem anunciar.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7c0d8105-f037-4c05-a49b-5cc6df67036a",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f8585f4-cb8c-4e83-93ce-3608986e4570",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "OAuth2 Token",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "paulo",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "paulo123",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "Oz6VFTP68uv4sOG5bz07cB4lh1UvUUnDI41hGQHO",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "W38ct9oY1ZgezDSmUV2V77kaR1HdVNex9gwQycfGHl4fe2ithwg41mr4aPFR5iP4liFyKw1caZEDxxsLaFtkv5QiH3mgIeLUsdKefaPGHkrY3ZF04uTSoXcyibqAscSI",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/o/token/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"o",
+								"token",
+								""
+							]
+						},
+						"description": "Esta é uma requisição para obter o token de autenticação"
+					},
+					"response": []
+				}
+			],
+			"description": "A autenticação é baseada em OAuth2.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "49bfa579-bbb5-4590-a438-8757427850a3",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c1d2fc92-89d4-45f6-9066-e4713a08fae0",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "6f1ceabe-76b4-48c8-bc89-1f7117b6689b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "bcd73379-1a39-4212-a280-40cccf481acd",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
