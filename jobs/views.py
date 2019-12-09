@@ -30,7 +30,7 @@ class UserListView(generics.ListAPIView):
     serializer_class = UserSerializer
     name = 'user-list'
     authentication_classes = [OAuth2Authentication]
-    permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
+    permission_classes = [permissions.IsAdminUser, TokenHasScope]
     required_scopes = ['read:user']
 
 
@@ -38,7 +38,7 @@ class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     name = 'user-detail'
-    permission_classes = [permissions.IsAdminUser, TokenHasReadWriteScope]
+    permission_classes = [permissions.IsAdminUser, TokenHasScope]
     required_scopes = ['write:user']
 
 
@@ -157,20 +157,22 @@ class JobAdvertisementListView(generics.ListAPIView):
     throttle_scope = 'job-view'
     throttle_classes = (ScopedRateThrottle,)
     authentication_classes = [OAuth2Authentication]
-    permission_classes = [TokenHasScope]
-    required_scopes = ['read:ad']
     name = 'jobadvertisement-list'
 
     def get_queryset(self):
-        return JobAdvertisement.objects.filter(owner=self.request.user)
+        if self.request.user.is_anonymous is False:
+            return JobAdvertisement.objects.filter(owner=self.request.user)
+        else:
+            return JobAdvertisement.objects.all()
 
 
 class JobAdvertisementDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
     name = 'jobadvertisement-detail'
-    permission_classes = [permissions.IsAdminUser, IsOwnerOrReadyOnly, IsEmployerOrReadOnly]
-    required_scopes = ['write:company']
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [IsOwnerOrReadyOnly, IsEmployerOrReadOnly, TokenHasScope]
+    required_scopes = ['write:ad']
 
 
 class CustomAuthTokenView(ObtainAuthToken):

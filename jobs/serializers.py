@@ -42,7 +42,7 @@ class JobAdvertisementListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class JobAdvertisementDetailSerializer(serializers.HyperlinkedModelSerializer):
-    company = serializers.SlugRelatedField(queryset=Company.objects.all(), slug_field='name')
+    company = serializers.SlugRelatedField(queryset=Company.objects.all(), slug_field='company_name')
 
     class Meta:
         model = JobAdvertisement
