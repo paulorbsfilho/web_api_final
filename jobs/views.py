@@ -135,7 +135,9 @@ class JobAdvertisementCreateView(generics.CreateAPIView):
     queryset = JobAdvertisement.objects.all()
     serializer_class = JobAdvertisementDetailSerializer
     name = 'jobadvertisement-create'
-    permission_classes = [IsEmployer]
+    authentication_classes = [OAuth2Authentication]
+    permission_classes = [IsEmployer, TokenHasScope]
+    required_scopes = ['write:ad']
 
     def perform_create(self, serializer):
         owner = self.request.user
