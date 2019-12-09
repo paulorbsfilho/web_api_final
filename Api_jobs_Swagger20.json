@@ -1,0 +1,1177 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Api jobs",
+    "description": "A API Jobs é uma api para divulgação de vagas de emprego. Ela possui os objetos Employer, Candidate, JobAdvertisement, e Company. Para ver detalhes das vagas é necessário registro.",
+    "contact": {}
+  },
+  "host": "localhost:8000",
+  "basePath": "/",
+  "securityDefinitions": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "implicit",
+      "authorizationUrl": "http://example.com/auth",
+      "scopes": {}
+    }
+  },
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/sign-up-employer": {
+      "post": {
+        "description": "Essa requisição cria um empregador associado a um usuário(auth.User) juntamente com a sua primeira empresa obrigatoriamente.",
+        "summary": "Employer Create",
+        "tags": [
+          "Employer"
+        ],
+        "operationId": "EmployerCreate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployerCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/employers": {
+      "get": {
+        "description": "Essa requisição é para listar empresas.",
+        "summary": "Employer List",
+        "tags": [
+          "Employer"
+        ],
+        "operationId": "EmployerList",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/employers/1": {
+      "get": {
+        "description": "Essa requisição tem acesso aos detalhes de um empregador.",
+        "summary": "Employer Detail",
+        "tags": [
+          "Employer"
+        ],
+        "operationId": "EmployerDetail",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Requisição para editar um empregador.",
+        "summary": "Employer Update",
+        "tags": [
+          "Employer"
+        ],
+        "operationId": "EmployerUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployerUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Requisição para excluir um empregador.",
+        "summary": "Employer Delete",
+        "tags": [
+          "Employer"
+        ],
+        "operationId": "EmployerDelete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/EmployerDeleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/sign-up-candidate": {
+      "post": {
+        "description": "Esta requisição cria um candidato associado a um usuário (auth.User)",
+        "summary": "Create Candidate",
+        "tags": [
+          "Candidate"
+        ],
+        "operationId": "CreateCandidate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateCandidateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/candidates": {
+      "get": {
+        "description": "Requisição para listagem de candidatos.",
+        "summary": "Candidates List",
+        "tags": [
+          "Candidate"
+        ],
+        "operationId": "CandidatesList",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/candidates/2": {
+      "get": {
+        "description": "Requisição para detalhes de um candidato.",
+        "summary": "Candidates Detail",
+        "tags": [
+          "Candidate"
+        ],
+        "operationId": "CandidatesDetail",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/candidates/1": {
+      "put": {
+        "description": "Requisição para editar candidato.",
+        "summary": "Candidates Update",
+        "tags": [
+          "Candidate"
+        ],
+        "operationId": "CandidatesUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CandidatesUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Requisição para excluir um candidato.",
+        "summary": "Candidates Delete",
+        "tags": [
+          "Candidate"
+        ],
+        "operationId": "CandidatesDelete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/companies": {
+      "post": {
+        "description": "Requisição para criar uma empresa. Para criar uma empresa usando esta requisição é necessário estar logado, não pode ser usado para criar a primeira empresa.",
+        "summary": "Company Create",
+        "tags": [
+          "Company"
+        ],
+        "operationId": "CompanyCreate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CompanyCreateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "get": {
+        "description": "Requisição para listagem de empresas",
+        "summary": "Company List",
+        "tags": [
+          "Company"
+        ],
+        "operationId": "CompanyList",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/companies/1": {
+      "get": {
+        "description": "Requisição para edição de uma empresa.",
+        "summary": "Company Detail",
+        "tags": [
+          "Company"
+        ],
+        "operationId": "CompanyDetail",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "TODO: Add Description",
+        "summary": "Company Update",
+        "tags": [
+          "Company"
+        ],
+        "operationId": "CompanyUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CompanyUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Requisição para excluir uma empresa.",
+        "summary": "Company Delete",
+        "tags": [
+          "Company"
+        ],
+        "operationId": "CompanyDelete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CompanyDeleteRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/advertise-job": {
+      "post": {
+        "description": "Requisição para anunciar uma vaga.",
+        "summary": "Create Job Advertisement",
+        "tags": [
+          "JobAdvertisement"
+        ],
+        "operationId": "CreateJobAdvertisement",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CreateJobAdvertisementRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/jobs-advertisements": {
+      "get": {
+        "description": "Requisição para listagem de vagas de emprego.",
+        "summary": "JobAdvertisements List",
+        "tags": [
+          "JobAdvertisement"
+        ],
+        "operationId": "JobAdvertisementsList",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/jobs-advertisements/7": {
+      "get": {
+        "description": "Requisição para edição de um anúncio.",
+        "summary": "JobAdvertisements Detail",
+        "tags": [
+          "JobAdvertisement"
+        ],
+        "operationId": "JobAdvertisementsDetail",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "description": "Requisição para edição de um anúncio.",
+        "summary": "JobAdvertisements Update",
+        "tags": [
+          "JobAdvertisement"
+        ],
+        "operationId": "JobAdvertisementsUpdate",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/JobAdvertisementsUpdateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "description": "Requisição para excluir um anúncio.",
+        "summary": "JobAdvertisements Delete",
+        "tags": [
+          "JobAdvertisement"
+        ],
+        "operationId": "JobAdvertisementsDelete",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/o/token": {
+      "post": {
+        "description": "Esta é uma requisição para obter o token de autenticação",
+        "summary": "OAuth2 Token",
+        "tags": [
+          "Auth"
+        ],
+        "operationId": "OAuth2Token",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "grant_type",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "client_id",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "client_secret",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "definitions": {
+    "EmployerCreateRequest": {
+      "title": "EmployerCreateRequest",
+      "example": {
+        "username": "ana3",
+        "email": "ana@mail.com",
+        "password": "ana123",
+        "first_name": "ana",
+        "last_name": "maria",
+        "phone": "6565323434",
+        "company_name": "oracle",
+        "catchPhrase": "Hello world",
+        "about": "oracle"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "phone",
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "EmployerUpdateRequest": {
+      "title": "EmployerUpdateRequest",
+      "example": {
+        "username": "ana3",
+        "email": "ana@mail.com",
+        "password": "ana123",
+        "first_name": "ana",
+        "last_name": "maria",
+        "phone": "6565323434",
+        "company_name": "oracle",
+        "catchPhrase": "Hello world",
+        "about": "oracle"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "phone",
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "EmployerDeleteRequest": {
+      "title": "EmployerDeleteRequest",
+      "example": {
+        "username": "ana3",
+        "email": "ana@mail.com",
+        "password": "ana123",
+        "first_name": "ana",
+        "last_name": "maria",
+        "phone": "6565323434",
+        "company_name": "oracle",
+        "catchPhrase": "Hello world",
+        "about": "oracle"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "phone",
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "CreateCandidateRequest": {
+      "title": "CreateCandidateRequest",
+      "example": {
+        "username": "marcosteixeira",
+        "email": "marcos@mail.com",
+        "password": "marcosteixeira123",
+        "first_name": "marcos",
+        "last_name": "teixeira",
+        "phone": "656588834",
+        "academic_formation": "technolog in admnistration",
+        "institution": "FSA",
+        "bio": "ksgfuds dfugfdg siudgf isgf gfgfgfg u gfdufg dgf",
+        "knowledge": "shhsiahd di dhdhdhd dhd dhd dhdhdhsifisfh"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "academic_formation": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "knowledge": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "phone",
+        "academic_formation",
+        "institution",
+        "bio",
+        "knowledge"
+      ]
+    },
+    "CandidatesUpdateRequest": {
+      "title": "CandidatesUpdateRequest",
+      "example": {
+        "username": "marcosteixeira",
+        "email": "marcos@mail.com",
+        "password": "marcosteixeira123",
+        "first_name": "marcos",
+        "last_name": "teixeira",
+        "phone": "656588834",
+        "academic_formation": "technolog in admnistration",
+        "institution": "FSA",
+        "bio": "ksgfuds dfugfdg siudgf isgf gfgfgfg u gfdufg dgf",
+        "knowledge": "shhsiahd di dhdhdhd dhd dhd dhdhdhsifisfh"
+      },
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "last_name": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "academic_formation": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "knowledge": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "username",
+        "email",
+        "password",
+        "first_name",
+        "last_name",
+        "phone",
+        "academic_formation",
+        "institution",
+        "bio",
+        "knowledge"
+      ]
+    },
+    "CompanyCreateRequest": {
+      "title": "CompanyCreateRequest",
+      "example": {
+        "company_name": "gulugulu",
+        "catchPhrase": "Hello world",
+        "about": "gulugulu"
+      },
+      "type": "object",
+      "properties": {
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "CompanyUpdateRequest": {
+      "title": "CompanyUpdateRequest",
+      "example": {
+        "company_name": "gulugulu",
+        "catchPhrase": "Hello world",
+        "about": "gulugulu"
+      },
+      "type": "object",
+      "properties": {
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "CompanyDeleteRequest": {
+      "title": "CompanyDeleteRequest",
+      "example": {
+        "company_name": "gulugulu",
+        "catchPhrase": "Hello world",
+        "about": "gulugulu"
+      },
+      "type": "object",
+      "properties": {
+        "company_name": {
+          "type": "string"
+        },
+        "catchPhrase": {
+          "type": "string"
+        },
+        "about": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "company_name",
+        "catchPhrase",
+        "about"
+      ]
+    },
+    "CreateJobAdvertisementRequest": {
+      "title": "CreateJobAdvertisementRequest",
+      "example": {
+        "title": "Programador",
+        "description": "Programação em geral",
+        "requirements": "tudo",
+        "desirable": "Experiência",
+        "payment": 3000,
+        "company": "InternetFibra"
+      },
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "requirements": {
+          "type": "string"
+        },
+        "desirable": {
+          "type": "string"
+        },
+        "payment": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "company": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "requirements",
+        "desirable",
+        "payment",
+        "company"
+      ]
+    },
+    "JobAdvertisementsUpdateRequest": {
+      "title": "JobAdvertisementsUpdateRequest",
+      "example": {
+        "title": "Programador",
+        "description": "Programação em geral",
+        "requirements": "tudo",
+        "desirable": "Experiência",
+        "payment": 3000,
+        "company": "InternetFibra"
+      },
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "requirements": {
+          "type": "string"
+        },
+        "desirable": {
+          "type": "string"
+        },
+        "payment": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "company": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "requirements",
+        "desirable",
+        "payment",
+        "company"
+      ]
+    }
+  },
+  "security": [
+    {
+      "auth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "Employer",
+      "description": "Employer é a entidade do empregador. Ele se cadastra, pode anunciar e buscar candidatos. Pode registrar mais de uma empresa (Company) na sua conta e gerenciá-las."
+    },
+    {
+      "name": "Candidate",
+      "description": "A entidade Candidate é a entidade que representa um candidato que busca um emprego. Para ter acesso aos detalhes de um anúncio é necessário entrar como um candidato. caso seja um anônimo só poderá ver o título e o valor do salário."
+    },
+    {
+      "name": "Company",
+      "description": "A entidade Company representa uma empresa. Um empresário (Employer) pode ser proprietário (owner) de uma ou mais empresas. A primeira empresa é cadstrada junto com o empresário. A partir daí, pode cadastrar mais se estiver logado."
+    },
+    {
+      "name": "JobAdvertisement",
+      "description": "A entidade JobAdvertisement representa o anúncio de uma vaga. Usuários anônimos precisam fazer registro antes de ver detalhes sobre a vaga. Somente empresários podem anunciar."
+    },
+    {
+      "name": "Auth",
+      "description": "A autenticação é baseada em OAuth2."
+    }
+  ]
+}
