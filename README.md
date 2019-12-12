@@ -6,7 +6,7 @@ Uma simples API de vagas de emprego.
 - https://app.swaggerhub.com/apis-docs/paulorbsfilho/api-jobs/1.0
 
 ## Vídeo sobre a API
-- https://youtu.be/9pFXHGnGVK4
+- https://youtu.be/qexI_dYbig8
 
 ## Dependências
 Para instalar os requisitos use:
