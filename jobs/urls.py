@@ -6,6 +6,8 @@ urlpatterns = [
     path('', views.ApiRoot.as_view(), name=views.ApiRoot.name),
     path('o/', include('oauth2_provider.urls')),
 
+    path('accounts/profile', views.CurrentUserView.as_view(), name=views.CurrentUserView.name),
+
     path('api_auth/', include('rest_framework.urls')),
     path('api-token-auth/', views.CustomAuthTokenView.as_view(), name=views.CustomAuthTokenView.name),
 

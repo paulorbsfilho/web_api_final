@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
@@ -15,6 +15,7 @@ class ApiRoot(generics.GenericAPIView):
 
     def get(self, request):
         return Response({
+            'user-info': reverse(CurrentUserView.name, request=request),
             'users': reverse(UserListView.name, request=request),
             'signup-employer': reverse(EmployerCreateView.name, request=request),
             'employers': reverse(EmployerListView.name, request=request),
@@ -23,6 +24,16 @@ class ApiRoot(generics.GenericAPIView):
             'job-advertisements': reverse(JobAdvertisementListView.name, request=request),
             'companies': reverse(CompanyListView.name, request=request),
         })
+
+
+class CurrentUserView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer = UserSerializer
+    name = 'current-user'
+
+    def get(self, request, **kwargs):
+        serializer = UserSerializer(request.user, context={'request': request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserListView(generics.ListAPIView):

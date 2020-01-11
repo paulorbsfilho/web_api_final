@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'django_filters',
     'oauth2_provider',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -119,6 +121,7 @@ USE_L10N = True
 USE_TZ = True
 
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
@@ -147,7 +150,6 @@ REST_FRAMEWORK = {
     #     'rest_framework.permissions.IsAuthenticated',
     # )
 }
-
 OAUTH2_PROVIDER = {
     'SCOPES': {'user:read': 'Read user scope',
                'user:write': 'Write user scope',
@@ -167,3 +169,15 @@ OAUTH2_PROVIDER = {
 STATIC_URL = '/static/'
 
 # curl -X POST -d "grant_type=password&username=paulo&password=paulo123" -u"Oz6VFTP68uv4sOG5bz07cB4lh1UvUUnDI41hGQHO:W38ct9oY1ZgezDSmUV2V77kaR1HdVNex9gwQycfGHl4fe2ithwg41mr4aPFR5iP4liFyKw1caZEDxxsLaFtkv5QiH3mgIeLUsdKefaPGHkrY3ZF04uTSoXcyibqAscSI" http://localhost:8000/o/token/
+
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:4200',
+    'http://localhost:8000'
+]
+CORS_ORIGIN_REGEX_WHITELIST = [
+    'http://localhost:4200',
+    'http://localhost:8000'
+]
