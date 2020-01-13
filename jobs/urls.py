@@ -20,7 +20,7 @@ urlpatterns = [
 
     path('sign-up-candidate/', views.CandidateCreateView.as_view(), name=views.CandidateCreateView.name),
     path('candidates/', views.CandidateListView.as_view(), name=views.CandidateListView.name),
-    path('users/<int:pk>', views.CandidateDetailView.as_view(), name=views.CandidateDetailView.name),
+    path('candidates/<int:pk>', views.CandidateDetailView.as_view(), name=views.CandidateDetailView.name),
 
     path('companies/', views.CompanyListView.as_view(), name=views.CompanyListView.name),
     path('companies/<int:pk>', views.CompanyDetailView.as_view(), name=views.CompanyDetailView.name),

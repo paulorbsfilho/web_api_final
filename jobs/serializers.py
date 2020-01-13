@@ -7,7 +7,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ['url', 'pk', 'username', 'email']
+        fields = ['url', 'pk', 'username', 'email', 'first_name', 'last_name']
 
 
 class EmployerSerializer(serializers.HyperlinkedModelSerializer):
@@ -15,7 +15,7 @@ class EmployerSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Employer
-        fields = ['url', 'pk', 'user']
+        fields = ['url', 'pk', 'user', 'phone']
 
 
 class CandidateSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,7 +23,7 @@ class CandidateSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Candidate
-        fields = ['url', 'pk', 'user', 'phone', 'academic_formation', 'bio']
+        fields = ['url', 'pk', 'user', 'phone', 'academic_formation', 'institution', 'knowledge', 'bio']
 
 
 class CompanySerializer(serializers.HyperlinkedModelSerializer):
